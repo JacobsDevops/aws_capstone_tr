@@ -82,17 +82,27 @@ WSGI_APPLICATION = 'cblog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'capstonedb', # database name in RDS is written here
-        'USER': 'djangouser', # database master username in RDS is written here
-        'PASSWORD': 'password',
-        'HOST': 'http://cw-capstone-eb-dev.us-east-1.elasticbeanstalk.com/',  # database endpoint is written here
-        'PORT': '3306' # database port is written here
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'capstonedb', # database name in RDS is written here
+#        'USER': 'djangouser', # database master username in RDS is written here
+#        'PASSWORD': 'password',
+#        'HOST': 'http://cw-capstone-eb-dev.us-east-1.elasticbeanstalk.com/',  # database endpoint is written here
+#        'PORT': '3306' # database port is written here
+#    }
+#}
+if 'database-eb-capstone.ca8f9iezpecv.us-east-1.rds.amazonaws.com in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['database-eb-capstone'],
+            'USER': os.environ['djangouser'],
+            'PASSWORD': os.environ['password'],
+            'HOST': os.environ['database-eb-capstone.ca8f9iezpecv.us-east-1.rds.amazonaws.com'],
+            'PORT': os.environ['3306'],
+        }
     }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
